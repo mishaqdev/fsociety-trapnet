@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="hero-shell">
+    <section class="hero-card">
+      <p class="tag">Security Lab Dashboard</p>
+      <h1>Observe traffic patterns and suspicious behavior with clarity.</h1>
+      <p class="intro">This local dashboard helps you review honeypot events from your own machine.</p>
+      <p class="intro">Sign in or create an account to access analysis views and historical attack records.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="{{ url_for('login.login') }}">Login</a>
+        <a class="btn btn-secondary" href="{{ url_for('signup.signup') }}">Sign Up</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

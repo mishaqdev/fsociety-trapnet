@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora · Home</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7fc 0%, #eef2f9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .home-card {
+      width: 100%;
+      max-width: 620px;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 8px 18px rgba(0, 0, 0, 0.05);
+      padding: 2.2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1E2A5E;
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+    }
+
+    p {
+      color: #475569;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      min-width: 180px;
+      padding: 0.9rem 1.1rem;
+      border-radius: 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-login {
+      color: #ffffff;
+      background: linear-gradient(98deg, #1E2A5E, #2E4A8E);
+      box-shadow: 0 8px 18px rgba(30, 42, 94, 0.2);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-signup {
+      color: #1E2A5E;
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+    }
+
+    .btn-signup:hover {
+      transform: translateY(-2px);
+      background: #e0e7ff;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="home-card">
+    <h1>Welcome to Nexora</h1>
+    <p>Secure access starts here. Login to continue or create a new account.</p>
+
+    <div class="actions">
+      <a class="btn btn-login" href="{{ url_for('login.login') }}">Login</a>
+      <a class="btn btn-signup" href="{{ url_for('signup.signup') }}">Create account</a>
+    </div>
+  </main>
+</body>
+
+</html>

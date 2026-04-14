@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Nexora · Create Account</title>
+  <!-- Google Fonts: clean modern sans -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f5f7fc 0%, #eef2f9 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* main card container - identical to login */
+    .signup-container {
+      max-width: 480px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 8px 18px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .signup-container:hover {
+      transform: translateY(-4px);
+    }
+
+    /* header area with brand & SVG logo */
+    .brand-header {
+      padding: 2rem 2rem 1rem 2rem;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .svg-logo {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .company-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #1E2A5E, #2E4A8E);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-top: 0.25rem;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: #5b6e8c;
+      font-weight: 500;
+      margin-top: 0.4rem;
+      letter-spacing: 0.2px;
+    }
+
+    /* form area */
+    .form-wrapper {
+      padding: 0.5rem 2rem 2rem 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8f9bb3;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+      pointer-events: none;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 1.2rem;
+      background-color: #fefefe;
+      transition: all 0.25s;
+      outline: none;
+      color: #1e293b;
+    }
+
+    .input-group input:focus {
+      border-color: #2e4a8e;
+      box-shadow: 0 0 0 3px rgba(46, 74, 142, 0.15);
+      background-color: #ffffff;
+    }
+
+    .input-group input:focus+i {
+      color: #2e4a8e;
+    }
+
+    /* name row: first & last name side by side */
+    .name-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .name-row .input-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* password hint */
+    .password-hint {
+      font-size: 0.7rem;
+      color: #7c8ba0;
+      margin-top: -0.8rem;
+      margin-bottom: 1rem;
+      margin-left: 0.5rem;
+    }
+
+    /* checkbox for terms */
+    .terms-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.8rem;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .terms-group input {
+      width: 1.1rem;
+      height: 1.1rem;
+      cursor: pointer;
+      accent-color: #2e4a8e;
+    }
+
+    .terms-group label {
+      color: #334155;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .terms-group a {
+      color: #2e4a8e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .terms-group a:hover {
+      text-decoration: underline;
+    }
+
+    /* signup button */
+    .signup-btn {
+      width: 100%;
+      background: linear-gradient(98deg, #1E2A5E, #2E4A8E);
+      border: none;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: white;
+      border-radius: 1.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 18px rgba(30, 42, 94, 0.2);
+      letter-spacing: 0.3px;
+    }
+
+    .signup-btn i {
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .signup-btn:hover {
+      background: linear-gradient(98deg, #15234e, #233d77);
+      transform: scale(1.01);
+      box-shadow: 0 10px 22px rgba(30, 42, 94, 0.3);
+    }
+
+    .signup-btn:hover i {
+      transform: translateX(4px);
+    }
+
+    /* divider */
+    .divider {
+      margin: 1.8rem 0 1.2rem;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #8b9ab0;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #e4e9f2;
+    }
+
+    .divider span {
+      margin: 0 12px;
+    }
+
+    /* login link row */
+    .login-link-row {
+      width: 100%;
+      background: linear-gradient(98deg, #1E2A5E, #2E4A8E);
+      border: none;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: white;
+      border-radius: 1.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 18px rgba(30, 42, 94, 0.2);
+      letter-spacing: 0.3px;
+    }
+
+    .login-link-row a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .login-link-row:hover {
+      transform: translateY(4px);
+    }
+
+    /* demo note */
+    .demo-note {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #8c9bb0;
+      background: #f8fafd;
+      margin-top: 1.5rem;
+      padding: 0.65rem;
+      border-radius: 2rem;
+      font-weight: 500;
+    }
+
+    .demo-note i {
+      margin-right: 5px;
+      font-size: 0.7rem;
+    }
+
+    /* responsiveness */
+    @media (max-width: 550px) {
+      .signup-container {
+        border-radius: 1.5rem;
+      }
+
+      .form-wrapper {
+        padding: 0.5rem 1.5rem 1.8rem 1.5rem;
+      }
+
+      .brand-header {
+        padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+      }
+
+      .name-row {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="signup-container">
+    <div class="brand-header">
+      <div class="svg-logo">
+        <!-- identical SVG logo as login page -->
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="56" height="56" rx="16" fill="url(#gradBg)" />
+          <path d="M28 14L38 20V32L28 38L18 32V20L28 14Z" stroke="white" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" fill="rgba(255,255,255,0.12)" />
+          <path d="M28 26L33 29V35L28 38L23 35V29L28 26Z" fill="white" fill-opacity="0.95" stroke="white"
+            stroke-width="1.2" />
+          <circle cx="28" cy="26" r="2" fill="#1E2A5E" stroke="white" stroke-width="1" />
+          <path d="M18 20L28 26L38 20" stroke="white" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M28 38V44" stroke="white" stroke-width="1.6" stroke-linecap="round" />
+          <circle cx="28" cy="47" r="2.2" fill="white" stroke="#1E2A5E" stroke-width="1.2" />
+          <defs>
+            <linearGradient id="gradBg" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#2E4A8E" />
+              <stop offset="1" stop-color="#1E2A5E" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="company-name">NEXORA</div>
+      <div class="tagline">join the future · secure workspace</div>
+    </div>
+
+    <div class="form-wrapper">
+      <form id="signupForm" action="{{ url_for('signup.signup') }}" method="POST">
+        <!-- first & last name row -->
+        <div class="name-row">
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="firstName" placeholder="First name" autocomplete="given-name" required>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-user-friends"></i>
+            <input type="text" id="lastName" placeholder="Last name" autocomplete="family-name" required>
+          </div>
+        </div>
+
+        <!-- email address -->
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" name="email" placeholder="Work email" autocomplete="email" required>
+        </div>
+
+        <!-- password -->
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" name="password" placeholder="Create password" autocomplete="new-password" required>
+        </div>
+        <div class="password-hint">
+          <i class="fas fa-shield-alt"></i> Use 8+ characters with letters & numbers
+        </div>
+
+        <!-- confirm password -->
+        <div class="input-group">
+          <i class="fas fa-check-circle"></i>
+          <input type="password" id="confirmPassword" placeholder="Confirm password" autocomplete="off" required>
+        </div>
+
+        <!-- terms & conditions -->
+        <div class="terms-group">
+          <input type="checkbox" id="termsCheckbox" required>
+          <label for="termsCheckbox">
+            I agree to the <a href="#" id="termsLink">Terms of Service</a> and <a href="#" id="privacyLink">Privacy
+              Policy</a>
+          </label>
+        </div>
+
+        <button type="submit" class="signup-btn" id="createAccountBtn">
+          <span>Create account</span> <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <div class="divider">
+          <span>already part of Nexora?</span>
+        </div>
+
+        <div class="login-link-row">
+          <a href="{{ url_for('login.login') }}" id="backToLoginLink">
+            <i class="fas fa-sign-in-alt"></i> Sign in to existing account
+          </a>
+        </div>
+
+        {% if error %}
+        <div class="demo-note" style="background:#fff1f2;color:#be123c;">
+          <i class="fas fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="demo-note">
+          <i class="fas fa-terminal"></i> Demo: registration data will be logged to console (no backend)
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById('signupForm');
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirmPassword');
+      const termsCheckbox = document.getElementById('termsCheckbox');
+      const termsLink = document.getElementById('termsLink');
+      const privacyLink = document.getElementById('privacyLink');
+
+      // Helper: show field error border temporarily
+      const markFieldError = (field) => {
+        field.style.borderColor = "#e53e3e";
+        setTimeout(() => {
+          field.style.borderColor = "#e2e8f0";
+        }, 1200);
+      };
+
+      const resetFieldBorder = (field) => {
+        field.style.borderColor = "#e2e8f0";
+      };
+
+      // client-side validation before normal form submission
+      const handleSignup = (event) => {
+        event.preventDefault();
+
+        // reset borders
+        resetFieldBorder(firstName);
+        resetFieldBorder(lastName);
+        resetFieldBorder(email);
+        resetFieldBorder(password);
+        resetFieldBorder(confirmPassword);
+
+        // validation
+        const first = firstName.value.trim();
+        const last = lastName.value.trim();
+        const mail = email.value.trim();
+        const pwd = password.value;
+        const confirmPwd = confirmPassword.value;
+
+        if (!first) {
+          console.log("[SIGNUP] missing first name");
+          markFieldError(firstName);
+          return;
+        }
+        if (!last) {
+          console.log("[SIGNUP] missing last name");
+          markFieldError(lastName);
+          return;
+        }
+        if (!mail) {
+          console.log("[SIGNUP] missing email");
+          markFieldError(email);
+          return;
+        }
+        if (!mail.includes('@') || !mail.includes('.')) {
+          console.log("[SIGNUP] invalid email format");
+          markFieldError(email);
+          return;
+        }
+        if (!pwd) {
+          console.log("[SIGNUP] password empty");
+          markFieldError(password);
+          return;
+        }
+        if (pwd.length < 6) {
+          console.log("[SIGNUP] password too short (min 6 chars recommended)");
+          markFieldError(password);
+          return;
+        }
+        if (pwd !== confirmPwd) {
+          console.log("[SIGNUP] password mismatch");
+          markFieldError(confirmPassword);
+          return;
+        }
+        if (!termsCheckbox.checked) {
+          console.log("[SIGNUP] terms not accepted");
+          termsCheckbox.style.outline = "1px solid #e53e3e";
+          setTimeout(() => {
+            termsCheckbox.style.outline = "none";
+          }, 1000);
+          return;
+        }
+
+        const btn = document.getElementById('createAccountBtn');
+        btn.innerHTML = '<span>Creating account</span> <i class="fas fa-spinner fa-pulse"></i>';
+        btn.style.opacity = "0.9";
+        form.submit();
+      };
+
+      form.addEventListener('submit', handleSignup);
+
+      // terms & privacy links (console log only)
+      if (termsLink) {
+        termsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log("[TERMS] Terms of Service link clicked — demo mode");
+        });
+      }
+      if (privacyLink) {
+        privacyLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log("[PRIVACY] Privacy Policy link clicked — demo mode");
+        });
+      }
+
+      // live border reset on input for better UX
+      const inputs = [firstName, lastName, email, password, confirmPassword];
+      inputs.forEach(input => {
+        if (input) {
+          input.addEventListener('input', () => {
+            input.style.borderColor = "#e2e8f0";
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

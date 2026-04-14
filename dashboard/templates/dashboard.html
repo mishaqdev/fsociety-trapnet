@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="dashboard-shell">
+    <div class="dashboard-frame">
+      <header class="topbar">
+        <div>
+          <p class="tag">Analysis Dashboard</p>
+          <h1>Welcome, {{ username }}.</h1>
+          <p class="intro">Live honeypot traffic overview from <span class="path-chip">honeypot.db</span></p>
+        </div>
+        <form method="post" action="{{ url_for('dashboard.logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="btn btn-secondary" type="submit">Logout</button>
+        </form>
+      </header>
+
+      <section class="panel-grid summary-grid">
+        <article class="summary-card">
+          <p>Total Requests</p>
+          <strong>{{ overview.total_requests }}</strong>
+        </article>
+        <article class="summary-card">
+          <p>Unique IPs</p>
+          <strong>{{ overview.unique_ips }}</strong>
+        </article>
+        <article class="summary-card">
+          <p>Unique Routes</p>
+          <strong>{{ overview.unique_routes }}</strong>
+        </article>
+        <article class="summary-card">
+          <p>Failed Requests</p>
+          <strong>{{ overview.failed_requests }}</strong>
+        </article>
+      </section>
+
+      <section class="panel-grid spotlight-grid">
+        <article class="panel spotlight">
+          <p class="tag">Top Source</p>
+          <h2>{{ overview.top_ip }}</h2>
+          <p class="intro">Most active IP address in the current dataset.</p>
+        </article>
+        <article class="panel spotlight">
+          <p class="tag">Top Route</p>
+          <h2>{{ overview.top_route }}</h2>
+          <p class="intro">Route receiving the highest request volume.</p>
+        </article>
+      </section>
+
+      <section class="panel-grid charts-grid">
+        <article class="panel chart-panel">
+          <div class="section-head">
+            <div>
+              <p class="tag">Per IP Graph</p>
+              <h2>Requests by IP</h2>
+            </div>
+            <span class="section-meta">{{ ip_stats|length }} IPs</span>
+          </div>
+          {% if ip_stats %}
+          <div class="bar-list">
+            {% for item in ip_stats %}
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>{{ item.label }}</span>
+                <span>{{ item.count }} requests</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill ip-fill" style="width: {{ item.width }}%"></div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="empty-state">No honeypot events have been recorded yet.</p>
+          {% endif %}
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="section-head">
+            <div>
+              <p class="tag">Route Graph</p>
+              <h2>Requests by Route</h2>
+            </div>
+            <span class="section-meta">{{ route_stats|length }} routes</span>
+          </div>
+          {% if route_stats %}
+          <div class="bar-list">
+            {% for item in route_stats %}
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>{{ item.label }}</span>
+                <span>{{ item.count }} requests</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill route-fill" style="width: {{ item.width }}%"></div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="empty-state">No routes are available yet.</p>
+          {% endif %}
+        </article>
+      </section>
+
+      <section class="panel-grid charts-grid">
+        <article class="panel chart-panel">
+          <div class="section-head">
+            <div>
+              <p class="tag">Password Graph</p>
+              <h2>Commonly Used Passwords</h2>
+            </div>
+            <span class="section-meta">{{ password_stats|length }} values</span>
+          </div>
+          {% if password_stats %}
+          <div class="bar-list">
+            {% for item in password_stats %}
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>{{ item.label }}</span>
+                <span>{{ item.count }} uses</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill password-fill" style="width: {{ item.width }}%"></div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="empty-state">No password attempts are available yet.</p>
+          {% endif %}
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="section-head">
+            <div>
+              <p class="tag">Top Password</p>
+              <h2>{{ overview.top_password }}</h2>
+            </div>
+            <span class="section-meta">Most repeated credential attempt</span>
+          </div>
+          <p class="intro">This helps identify common brute-force patterns and repeated credential payloads.</p>
+        </article>
+      </section>
+
+      <section class="panel data-panel">
+        <div class="section-head">
+          <div>
+            <p class="tag">Attack Table</p>
+            <h2>All Honeypot Events</h2>
+          </div>
+          <span class="section-meta">{{ attacks|length }} rows</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Timestamp</th>
+                <th>IP</th>
+                <th>Route</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>User Agent</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in attacks %}
+              <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.timestamp }}</td>
+                <td>{{ row.ip }}</td>
+                <td>{{ row.requestPath }}</td>
+                <td>{{ row.username }}</td>
+                <td>{{ row.password }}</td>
+                <td>{{ row.user_agent }}</td>
+                <td><span class="status-pill {{ row.status }}">{{ row.status }}</span></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
