@@ -41,7 +41,7 @@ The goal is to:
 1. ### Clone the repository
 
 ```bash
-git clone https://github.com/mishaqdev/honeypot-website.git
+git clone https://github.com/mishaqdev/fsociety-trapnet
 cd fsociety-trapnet
 ```
 
